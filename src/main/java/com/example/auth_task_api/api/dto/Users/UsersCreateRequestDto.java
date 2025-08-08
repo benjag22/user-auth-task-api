@@ -3,11 +3,9 @@ package com.example.auth_task_api.api.dto.Users;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UsersCreateRequestDto {
 
     @NotBlank(message = "The first name cannot be empty")
