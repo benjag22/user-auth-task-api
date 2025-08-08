@@ -1,0 +1,9 @@
+package com.example.auth_task_api.persistence.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserLoginDataRepository extends JpaRepository<UserLoginDataRepository, Long> {
+
+}
