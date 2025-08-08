@@ -22,5 +22,11 @@ public class SecurityUtil {
         return Base64.getEncoder().encodeToString(salt);
     }
 
-    
+    public String hashPassword(String password, String salt){
+        return this.passwordEncoder.encode(password+salt);
+    }
+
+    public boolean verifyPassword(String password, String hashedPassword, String salt){
+        return this.passwordEncoder.matches(password+salt, hashedPassword);
+    }
 }
