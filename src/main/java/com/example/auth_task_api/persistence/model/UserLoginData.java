@@ -1,14 +1,13 @@
 package com.example.auth_task_api.persistence.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user_login_data")
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,7 +36,7 @@ public class UserLoginData {
     private String emailAdress;
 
     @Column(name = "confirmation_token", length = 86)
-    private String confirmationToken;
+    private String confirmationToken = null;
 
     @Column(name = "token_generation_time")
     private Timestamp tokenGenerationTime = null;
