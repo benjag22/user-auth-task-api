@@ -3,9 +3,9 @@ package com.example.auth_task_api.api.dto.Users;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class UsersCreateRequestDto {
 
     @NotBlank(message = "The first name cannot be empty")
@@ -22,7 +22,7 @@ public class UsersCreateRequestDto {
     private String nickname;
 
     @NotBlank(message = "cannot be empty")
-    @Size(min = 7, max = 15)
+    @Size(message = "Your password must be between 7 and 15 characters long.", min = 7, max = 15)
     private String password;
 
 }
