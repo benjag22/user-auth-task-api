@@ -1,5 +1,5 @@
-drop schema if exists user_tasks;
-create schema user_tasks;
+DROP SCHEMA IF EXISTS public CASCADE; 
+CREATE SCHEMA public
 
 
 create table users(
@@ -13,7 +13,7 @@ create table user_login_data(
 	id smallserial primary key,
     user_id smallint not null,
     nickname varchar(100) unique not null,
-    session_token char(86) unique check (session_token is null),
+    session_token char(254) unique,
     password_salt char(43) not null,
     password_hash char(64) not null,
     email_address varchar(254) not null unique,
