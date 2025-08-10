@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user_tasks
+    username: postgres
+    password: .
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8080
+
+application:
+  security:
+    jwt:
+      secret-key: CvfdGyRQq9OdTeBN1j2RleS7KIBhx8dcUaBBVWTmqwUZBSXGlRGjlbmxSRn0GR0s
+      expiration: 86400000
