@@ -23,7 +23,7 @@ public class UserLoginData {
     @Column(name = "nickname", length = 100, unique = true, nullable = false)
     private String nickname;
 
-    @Column(name = "session_token", length = 86, unique = true)
+    @Column(name = "session_token", length = 254, unique = true)
     private String sessionToken;
 
     @Column(name = "password_salt", length = 43, nullable = false)
@@ -32,8 +32,8 @@ public class UserLoginData {
     @Column(name = "password_hash", length = 63, nullable = false)
     private String passwordHash;
 
-    @Column(name = "email_adress", length = 254, nullable = false, unique = true)
-    private String emailAdress;
+    @Column(name = "email_address", length = 254, nullable = false, unique = true)
+    private String emailAddress;
 
     @Column(name = "confirmation_token", length = 86)
     private String confirmationToken = null;
