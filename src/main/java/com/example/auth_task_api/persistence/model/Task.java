@@ -30,10 +30,10 @@ public class Task {
     @Column(name = "description", length = 256)
     private String description;
 
-    @Column(name = "expiration_date", columnDefinition  = "DATE DEFAULT (CURRENT_DATE + INTERVAL '2 month')")
+    @Column(name = "expiration_date")
     private LocalDate expirationDate;
 
-    @Column(name = "creation_date", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
     @Column(name = "status")

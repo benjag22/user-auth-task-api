@@ -7,6 +7,7 @@ import lombok.*;
 @Table(name = "user_has_role")
 @Getter
 @Setter
+@EqualsAndHashCode(exclude = {"role", "user"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

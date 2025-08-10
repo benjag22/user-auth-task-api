@@ -8,9 +8,9 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode(exclude = {"role", "permission"})
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"role", "permission"})
 @IdClass(RoleGrantedPermissionPK.class)
 
 public class RoleGrantedPermission {

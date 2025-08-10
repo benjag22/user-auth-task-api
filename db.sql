@@ -50,7 +50,7 @@ create table role_granted_permission(
 	foreign key(permission_id) references permission(id),
     foreign key(role_id) references role(id)
 );
-create type status as enum ('pending', 'in_progress', 'completed', 'cancelled');
+create type task_status as enum ('pending', 'in_progress', 'completed', 'cancelled');
 
 create table task(
 	id smallserial primary key,
@@ -60,7 +60,7 @@ create table task(
     description varchar(256) null default null,
     expiration_date date default (current_date + interval '2 month'),
     creation_date date default current_timestamp,
-    status status default 'pending',
+    status task_status default 'pending',
     foreign key(user_id) references users(id)
 );
 
