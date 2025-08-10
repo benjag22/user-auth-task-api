@@ -2,7 +2,6 @@ package com.example.auth_task_api.controllers;
 
 import com.example.auth_task_api.api.dto.Auth.TokenResponse;
 import com.example.auth_task_api.api.dto.Users.UsersCreateRequestDto;
-import com.example.auth_task_api.persistence.model.Users;
 import com.example.auth_task_api.service.UsersService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
