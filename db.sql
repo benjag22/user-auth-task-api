@@ -4,7 +4,7 @@ CREATE SCHEMA public
 
 create table users(
 	id smallserial primary key ,
-    creation_date date,
+    creation_date timestamp,
     first_name varchar(100) not null ,
     middle_name varchar(100) default null,
     last_name varchar(100) not null

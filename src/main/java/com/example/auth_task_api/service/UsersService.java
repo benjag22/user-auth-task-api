@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UsersService {
 
@@ -34,9 +36,12 @@ public class UsersService {
                 .firstName(firstName)
                 .lastName(lastName)
                 .middleName(middleName)
+                .creationDate(LocalDateTime.now())
                 .build();
 
+        System.out.println("Creation date: "+newUser.getCreationDate());
         Users savedUser = usersRepository.save(newUser);
+
         UserLoginData savedUserLoginData = userLoginDataService.createUserLoginData(userDto, savedUser);
         return new TokenResponse(savedUserLoginData.getSessionToken());
     }
