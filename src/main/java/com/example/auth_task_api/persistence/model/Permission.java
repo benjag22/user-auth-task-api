@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = "grantedRoles")
-@ToString(exclude = "grantedRoles")
+
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
