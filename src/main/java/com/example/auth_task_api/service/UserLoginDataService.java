@@ -22,22 +22,27 @@ public class UserLoginDataService {
 
     @Transactional
     public UserLoginData createUserLoginData(UsersCreateRequestDto userLoginData, Users user) {
+
         SecurityUtil securityUtil = new SecurityUtil();
         String salt = securityUtil.generateSalt();
         String password = userLoginData.getPassword();
         String nickname = userLoginData.getNickname();
-        String emailAdress = userLoginData.getEmail_adress();
+        String emailAdress = userLoginData.getEmailAddress();
         String hashPassword = securityUtil.hashPassword(password, salt);
+
         UserLoginData newUserLoginData = UserLoginData
                 .builder()
                 .user(user)
-                .emailAdress(emailAdress)
+                .emailAddress(emailAdress)
                 .nickname(nickname)
                 .passwordHash(hashPassword)
                 .passwordSalt(salt)
                 .build();
+        System.out.println(newUserLoginData);
         UserLoginData savedUserLoginData = userLoginDataRepository.save(newUserLoginData);
-        savedUserLoginData.setSessionToken(jwtService.generateToken(savedUserLoginData));
+        String token = jwtService.generateToken(savedUserLoginData);
+        System.out.println("largo del token: "+ token.length());
+        savedUserLoginData.setSessionToken(token);
         return userLoginDataRepository.save(savedUserLoginData);
     }
 }

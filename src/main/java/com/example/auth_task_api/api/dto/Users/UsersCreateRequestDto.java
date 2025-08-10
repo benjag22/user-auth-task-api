@@ -17,7 +17,7 @@ public class UsersCreateRequestDto {
     private String lastName;
 
     @Email(message = "Email should be valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    private String email_adress;
+    private String emailAddress;
 
     private String nickname;
 

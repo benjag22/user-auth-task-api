@@ -30,7 +30,7 @@ public class JWTService {
                 .claims(Map.of(
                         "nickname", userLoginData.getNickname()
                 ))
-                .subject(userLoginData.getEmailAdress())
+                .subject(userLoginData.getEmailAddress())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSecretKey())
