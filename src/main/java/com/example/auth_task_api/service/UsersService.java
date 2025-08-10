@@ -1,6 +1,8 @@
 package com.example.auth_task_api.service;
 
+import com.example.auth_task_api.api.dto.Auth.TokenResponse;
 import com.example.auth_task_api.api.dto.Users.UsersCreateRequestDto;
+import com.example.auth_task_api.persistence.model.UserLoginData;
 import com.example.auth_task_api.persistence.model.Users;
 import com.example.auth_task_api.persistence.repository.UsersRepository;
 import jakarta.transaction.Transactional;
@@ -11,13 +13,16 @@ import org.springframework.stereotype.Service;
 public class UsersService {
 
     private final UsersRepository usersRepository;
+    private final UserLoginDataService userLoginDataService;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository) {
+    public UsersService(UsersRepository usersRepository, UserLoginDataService userLoginDataService) {
         this.usersRepository = usersRepository;
+        this.userLoginDataService = userLoginDataService;
     }
+
     @Transactional
-    public void registerUser(UsersCreateRequestDto userDto) {
+    public TokenResponse registerUser(UsersCreateRequestDto userDto) {
         String firstName = userDto.getFirstName();
         String lastName = userDto.getLastName();
         String middleName = null;
@@ -32,5 +37,7 @@ public class UsersService {
                 .build();
 
         Users savedUser = usersRepository.save(newUser);
+        UserLoginData savedUserLoginData = userLoginDataService.createUserLoginData(userDto, savedUser);
+        return new TokenResponse(savedUserLoginData.getSessionToken());
     }
 }
