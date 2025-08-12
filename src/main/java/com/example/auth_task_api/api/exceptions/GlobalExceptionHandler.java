@@ -1,5 +1,7 @@
 package com.example.auth_task_api.api.exceptions;
 
+import com.example.auth_task_api.api.dto.ApiErrorResponse;
+import com.example.auth_task_api.api.dto.FieldErrorItem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

@@ -1,4 +1,4 @@
-package com.example.auth_task_api.api.exceptions;
+package com.example.auth_task_api.api.dto;
 
 import java.util.List;
 

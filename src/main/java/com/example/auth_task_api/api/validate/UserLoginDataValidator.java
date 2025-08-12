@@ -3,7 +3,7 @@ package com.example.auth_task_api.api.validate;
 import com.example.auth_task_api.api.dto.Users.UsersCreateRequestDto;
 import com.example.auth_task_api.api.exceptions.BusinessValidationException;
 import com.example.auth_task_api.api.exceptions.DuplicateResourceException;
-import com.example.auth_task_api.api.exceptions.FieldErrorItem;
+import com.example.auth_task_api.api.dto.FieldErrorItem;
 import com.example.auth_task_api.persistence.repository.UserLoginDataRepository;
 import org.springframework.stereotype.Service;
 

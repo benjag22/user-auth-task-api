@@ -1,5 +1,7 @@
 package com.example.auth_task_api.api.exceptions;
 
+import com.example.auth_task_api.api.dto.FieldErrorItem;
+
 import java.util.List;
 
 public class BusinessValidationException extends RuntimeException {
