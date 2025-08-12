@@ -3,6 +3,7 @@ package com.example.auth_task_api.controllers;
 import com.example.auth_task_api.api.dto.Auth.TokenResponse;
 import com.example.auth_task_api.api.dto.Users.UsersCreateRequestDto;
 import com.example.auth_task_api.service.UsersService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class UsersController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<TokenResponse> create(@RequestBody UsersCreateRequestDto user) {
+    public ResponseEntity<TokenResponse> create(@Valid @RequestBody UsersCreateRequestDto user) {
         final TokenResponse token = usersService.registerUser(user);
         return ResponseEntity.ok(token);
     }
