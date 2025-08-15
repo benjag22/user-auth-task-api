@@ -21,12 +21,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(body);
     }
 
-    @ExceptionHandler(DuplicateResourceException.class)
-    public ResponseEntity<ApiErrorResponse> handleDuplicate(DuplicateResourceException ex) {
+    @ExceptionHandler(FieldException.class)
+    public ResponseEntity<ApiErrorResponse> handleDuplicate(FieldException ex) {
         ApiErrorResponse body = new ApiErrorResponse(
                 ex.getMessage(),
                 HttpStatus.CONFLICT.value(),
-                List.of(new FieldErrorItem(ex.getField(), ex.getMessage(), "ALREADY_EXISTS"))
+                List.of(new FieldErrorItem(ex.getField(), ex.getMessage()))
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
