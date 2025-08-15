@@ -11,4 +11,6 @@ public interface UserLoginDataRepository extends JpaRepository<UserLoginData, Lo
 
     boolean existsByEmailAddress(String emailAddress);
 
+    UserLoginData findByEmailAddress(String emailAddress);
+
 }
