@@ -1,9 +1,11 @@
 package com.example.auth_task_api.api.validate;
 
+import com.example.auth_task_api.Security.SecurityUtil;
+import com.example.auth_task_api.api.dto.Users.UserLoginRequestDto;
 import com.example.auth_task_api.api.dto.Users.UsersCreateRequestDto;
 import com.example.auth_task_api.api.exceptions.BusinessValidationException;
-import com.example.auth_task_api.api.exceptions.DuplicateResourceException;
 import com.example.auth_task_api.api.dto.FieldErrorItem;
+import com.example.auth_task_api.persistence.model.UserLoginData;
 import com.example.auth_task_api.persistence.repository.UserLoginDataRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,49 +16,68 @@ import java.util.List;
 public class UserLoginDataValidator {
 
     private final UserLoginDataRepository userLoginDataRepository;
+    private final SecurityUtil securityUtil;
 
     public UserLoginDataValidator(UserLoginDataRepository userLoginDataRepository) {
         this.userLoginDataRepository = userLoginDataRepository;
+        this.securityUtil = new SecurityUtil();
     }
 
     public void validateOnCreate(UsersCreateRequestDto userRequest) {
-
         List<FieldErrorItem> errors = new ArrayList<>();
 
-        final String emailAdress = userRequest.getEmailAddress();
+        final String emailAddress = userRequest.getEmailAddress();
         final String nickname = userRequest.getNickname();
+        final String password = userRequest.getPassword();
 
-        if (nickname != null && nickname.isBlank()) {
-            errors.add(new FieldErrorItem("nickname", "Nickname cannot be blank", "NICKNAME_BLANK"));
+        if (nickname == null || nickname.isBlank()) {
+            errors.add(new FieldErrorItem("nickname", "Nickname cannot be blank"));
+        } else if (userLoginDataRepository.existsByNickname(nickname)) {
+            errors.add(new FieldErrorItem("nickname", "Nickname already exists"));
         }
 
-        if (userRequest.getPassword() != null && userRequest.getPassword().contains(" ")) {
-            errors.add(new FieldErrorItem("password", "Password cannot contain spaces", "PASSWORD_SPACES"));
+        if (password != null && password.contains(" ")) {
+            errors.add(new FieldErrorItem("password", "Password cannot contain spaces"));
         }
+
+        if (emailAddress == null || emailAddress.isBlank()) {
+            errors.add(new FieldErrorItem("emailAddress", "Email cannot be blank"));
+        } else if (userLoginDataRepository.existsByEmailAddress(emailAddress)) {
+            errors.add(new FieldErrorItem("emailAddress", "Email already exists"));
+        }
+
         if (!errors.isEmpty()) {
-            throw new BusinessValidationException(
-                    "Input has invalid fields",
-                    errors
-            );
-        }
-        checkNicknameUniqueness(nickname);
-
-        checkEmailUniqueness(emailAdress);
-    }
-
-    private void checkNicknameUniqueness(String nickname) {
-        if (nickname == null || nickname.isBlank()) return;
-        boolean exists = userLoginDataRepository.existsByNickname(nickname);
-        if (exists) {
-            throw new DuplicateResourceException("nickname", "Nickname already in use");
+            throw new BusinessValidationException("Input has invalid fields", errors);
         }
     }
 
-    private void checkEmailUniqueness(String email) {
-        if (email == null || email.isBlank()) return;
-        boolean exists = userLoginDataRepository.existsByEmailAddress(email);
-        if (exists) {
-            throw new DuplicateResourceException("email", "Email already in use");
+    public void validateOnLogin(UserLoginRequestDto userRequest) {
+        List<FieldErrorItem> errors = new ArrayList<>();
+        final String email = userRequest.getEmailAddress();
+        final String password = userRequest.getPassword();
+
+        if (email == null || email.isBlank()) {
+            errors.add(new FieldErrorItem("emailAddress", "Email cannot be blank"));
+        } else if (!userLoginDataRepository.existsByEmailAddress(email)) {
+            errors.add(new FieldErrorItem("emailAddress", "Email address does not exist"));
+        }
+
+        if (errors.isEmpty()) {
+            UserLoginData savedUserLoginData = userLoginDataRepository.findByEmailAddress(email);
+            if (savedUserLoginData == null) {
+                errors.add(new FieldErrorItem("emailAddress", "Email address not found"));
+            } else {
+                String salt = savedUserLoginData.getPasswordSalt();
+                String hashedPassword = securityUtil.hashPassword(password, salt);
+
+                if (!hashedPassword.equals(savedUserLoginData.getPasswordHash())) {
+                    errors.add(new FieldErrorItem("password", "Password does not match"));
+                }
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            throw new BusinessValidationException("Input has invalid fields", errors);
         }
     }
 }
