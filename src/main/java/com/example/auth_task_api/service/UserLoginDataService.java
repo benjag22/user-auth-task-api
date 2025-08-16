@@ -2,8 +2,8 @@ package com.example.auth_task_api.service;
 
 import com.example.auth_task_api.Security.SecurityUtil;
 import com.example.auth_task_api.api.dto.Auth.TokenResponse;
-import com.example.auth_task_api.api.dto.Users.UserLoginRequestDto;
-import com.example.auth_task_api.api.dto.Users.UsersCreateRequestDto;
+import com.example.auth_task_api.api.dto.Users.UserLoginRequest;
+import com.example.auth_task_api.api.dto.Users.UsersCreateRequest;
 import com.example.auth_task_api.api.validate.UserLoginDataValidator;
 import com.example.auth_task_api.persistence.model.UserLoginData;
 import com.example.auth_task_api.persistence.model.Users;
@@ -26,7 +26,7 @@ public class UserLoginDataService {
     }
 
     @Transactional
-    public UserLoginData createUserLoginData(UsersCreateRequestDto userLoginData, Users user) {
+    public UserLoginData createUserLoginData(UsersCreateRequest userLoginData, Users user) {
 
         SecurityUtil securityUtil = new SecurityUtil();
         String password = userLoginData.getPassword();
@@ -49,7 +49,7 @@ public class UserLoginDataService {
     }
 
     @Transactional
-    public TokenResponse attempLogin(UserLoginRequestDto userLoginData) {
+    public TokenResponse attempLogin(UserLoginRequest userLoginData) {
 
         userLoginDataValidator.validateOnLogin(userLoginData);
 

@@ -1,8 +1,8 @@
 package com.example.auth_task_api.api.validate;
 
 import com.example.auth_task_api.Security.SecurityUtil;
-import com.example.auth_task_api.api.dto.Users.UserLoginRequestDto;
-import com.example.auth_task_api.api.dto.Users.UsersCreateRequestDto;
+import com.example.auth_task_api.api.dto.Users.UserLoginRequest;
+import com.example.auth_task_api.api.dto.Users.UsersCreateRequest;
 import com.example.auth_task_api.api.exceptions.BusinessValidationException;
 import com.example.auth_task_api.api.dto.FieldErrorItem;
 import com.example.auth_task_api.persistence.model.UserLoginData;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class UserLoginDataValidator {
@@ -24,7 +23,7 @@ public class UserLoginDataValidator {
         this.securityUtil = new SecurityUtil();
     }
 
-    public void validateOnCreate(UsersCreateRequestDto userRequest) {
+    public void validateOnCreate(UsersCreateRequest userRequest) {
         List<FieldErrorItem> errors = new ArrayList<>();
 
         final String emailAddress = userRequest.getEmailAddress();
@@ -52,7 +51,7 @@ public class UserLoginDataValidator {
         }
     }
 
-    public void validateOnLogin(UserLoginRequestDto userRequest) {
+    public void validateOnLogin(UserLoginRequest userRequest) {
         List<FieldErrorItem> errors = new ArrayList<>();
         final String email = userRequest.getEmailAddress();
         final String password = userRequest.getPassword();

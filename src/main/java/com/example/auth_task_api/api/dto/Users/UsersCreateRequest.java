@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
-public class UsersCreateRequestDto {
+public class UsersCreateRequest {
 
     @NotBlank(message = "The first name cannot be empty")
     private String firstName;

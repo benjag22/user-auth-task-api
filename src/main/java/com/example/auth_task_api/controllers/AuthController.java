@@ -2,7 +2,7 @@ package com.example.auth_task_api.controllers;
 
 import com.example.auth_task_api.api.dto.Auth.LogoutRequest;
 import com.example.auth_task_api.api.dto.Auth.TokenResponse;
-import com.example.auth_task_api.api.dto.Users.UserLoginRequestDto;
+import com.example.auth_task_api.api.dto.Users.UserLoginRequest;
 import com.example.auth_task_api.service.UserLoginDataService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +17,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenResponse> login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
-        final TokenResponse token = userLoginDataService.attempLogin(userLoginRequestDto);
+    public ResponseEntity<TokenResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
+        final TokenResponse token = userLoginDataService.attempLogin(userLoginRequest);
         return ResponseEntity.ok(token);
     }
 

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class UserLoginRequestDto {
+public class UserLoginRequest {
 
     @NotBlank(message = "Email is required")
     private String emailAddress;

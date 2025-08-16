@@ -1,7 +1,7 @@
 package com.example.auth_task_api.service;
 
 import com.example.auth_task_api.api.dto.Auth.TokenResponse;
-import com.example.auth_task_api.api.dto.Users.UsersCreateRequestDto;
+import com.example.auth_task_api.api.dto.Users.UsersCreateRequest;
 import com.example.auth_task_api.api.validate.UserLoginDataValidator;
 import com.example.auth_task_api.persistence.model.UserLoginData;
 import com.example.auth_task_api.persistence.model.Users;
@@ -27,7 +27,7 @@ public class UsersService {
     }
 
     @Transactional
-    public TokenResponse registerUser(UsersCreateRequestDto userDto) {
+    public TokenResponse registerUser(UsersCreateRequest userDto) {
         userLoginDataValidator.validateOnCreate(userDto);
         String firstName = userDto.getFirstName();
         String lastName = userDto.getLastName();
