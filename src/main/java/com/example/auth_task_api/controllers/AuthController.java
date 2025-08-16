@@ -1,5 +1,6 @@
 package com.example.auth_task_api.controllers;
 
+import com.example.auth_task_api.api.dto.Auth.LogoutRequest;
 import com.example.auth_task_api.api.dto.Auth.TokenResponse;
 import com.example.auth_task_api.api.dto.Users.UserLoginRequestDto;
 import com.example.auth_task_api.service.UserLoginDataService;
@@ -19,6 +20,12 @@ public class AuthController {
     public ResponseEntity<TokenResponse> login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
         final TokenResponse token = userLoginDataService.attempLogin(userLoginRequestDto);
         return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@RequestBody LogoutRequest request) {
+        String response = userLoginDataService.attempLogout(request.sessionToken());
+        return ResponseEntity.ok(response);
     }
 
 }
