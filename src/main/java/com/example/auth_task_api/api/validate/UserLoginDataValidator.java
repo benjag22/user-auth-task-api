@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserLoginDataValidator {
@@ -67,10 +68,7 @@ public class UserLoginDataValidator {
             if (savedUserLoginData == null) {
                 errors.add(new FieldErrorItem("emailAddress", "Email address not found"));
             } else {
-                String salt = savedUserLoginData.getPasswordSalt();
-                String hashedPassword = securityUtil.hashPassword(password, salt);
-
-                if (!hashedPassword.equals(savedUserLoginData.getPasswordHash())) {
+                if (!securityUtil.verifyPassword(password, savedUserLoginData.getPasswordHash())) {
                     errors.add(new FieldErrorItem("password", "Password does not match"));
                 }
             }
