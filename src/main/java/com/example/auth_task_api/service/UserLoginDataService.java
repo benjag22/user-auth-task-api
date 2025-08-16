@@ -29,11 +29,10 @@ public class UserLoginDataService {
     public UserLoginData createUserLoginData(UsersCreateRequestDto userLoginData, Users user) {
 
         SecurityUtil securityUtil = new SecurityUtil();
-        String salt = securityUtil.generateSalt();
         String password = userLoginData.getPassword();
         String nickname = userLoginData.getNickname();
         String emailAddress = userLoginData.getEmailAddress();
-        String hashPassword = securityUtil.hashPassword(password, salt);
+        String hashPassword = securityUtil.hashPassword(password);
 
         UserLoginData newUserLoginData = UserLoginData
                 .builder()
@@ -41,7 +40,6 @@ public class UserLoginDataService {
                 .emailAddress(emailAddress)
                 .nickname(nickname)
                 .passwordHash(hashPassword)
-                .passwordSalt(salt)
                 .build();
 
         UserLoginData savedUserLoginData = userLoginDataRepository.save(newUserLoginData);
@@ -62,5 +60,13 @@ public class UserLoginDataService {
         userLoginDataRepository.save(savedUserLoginData);
 
         return new TokenResponse(token);
+    }
+
+    @Transactional
+    public String attempLogout(String token) {
+        UserLoginData userLoginData = userLoginDataRepository.findBySessionToken(token);
+        userLoginData.setSessionToken(null);
+        userLoginDataRepository.save(userLoginData);
+        return "log out successfully";
     }
 }
