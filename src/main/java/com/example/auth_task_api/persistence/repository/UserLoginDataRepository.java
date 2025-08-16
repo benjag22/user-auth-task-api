@@ -13,4 +13,5 @@ public interface UserLoginDataRepository extends JpaRepository<UserLoginData, Lo
 
     UserLoginData findByEmailAddress(String emailAddress);
 
+    UserLoginData findBySessionToken(String sessionToken);
 }
