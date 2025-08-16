@@ -14,7 +14,6 @@ create table user_login_data(
     user_id smallint not null,
     nickname varchar(100) unique not null,
     session_token char(254) unique,
-    password_salt char(43) not null,
     password_hash char(64) not null,
     email_address varchar(254) not null unique,
     confirmation_token char(86) null default null,
