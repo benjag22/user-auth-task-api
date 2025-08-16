@@ -26,9 +26,6 @@ public class UserLoginData {
     @Column(name = "session_token", length = 254, unique = true)
     private String sessionToken;
 
-    @Column(name = "password_salt", length = 43, nullable = false)
-    private String passwordSalt;
-
     @Column(name = "password_hash", length = 63, nullable = false)
     private String passwordHash;
 
